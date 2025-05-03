@@ -1,17 +1,71 @@
 import tomJerryNibbles.*
 
-describe "Grupo de test" {
+describe "tomJerryNibbles" {
 
-  test "test 1" {
-    assert.equals(100, 50+50)
+  test "Al inicio, la velocidad máxima de Tom es 10 (su energía es 50)" {
+    assert.equals(10, tom.velocidadMaxima())
   }
 
-  test "test 3" {
-    assert.that(true)
+  test "Si come a Jerry, la velocidad máxima pasa a ser 15.2 (su energía es 102)" {
+    tom.comerRaton(jerry)
+    assert.equals(15.2, tom.velocidadMaxima())
   }
 
-  test "test 4" {
-    assert.notThat(false)
+  test "Si corre 24 metros, entonces su velocidad máxima pasa a ser 14 (su energía es 90)" {
+    tom.comerRaton(jerry)
+    tom.correr(24)
+    assert.equals(14, tom.velocidadMaxima())
+  }
+
+  test "Si come a Nibbles, pasa a tener de velocidad máxima 18.7 (su energía es 137)" {
+    tom.comerRaton(jerry)
+    tom.correr(24)
+    tom.comerRaton(nibbles)
+    assert.equals(18.7, tom.velocidadMaxima())
+  }
+
+  test "si Jerry cumple años (3 años de edad), y luego Tom lo vuelve a comer, pasaría a tener 25.9 (su energia es 209)" {
+    tom.comerRaton(jerry)
+    tom.correr(24)
+    tom.comerRaton(nibbles)
+    jerry.cumplirAños()
+    tom.comerRaton(jerry)
+    assert.equals(25.9, tom.velocidadMaxima())
+  }
+
+  test "si corre 38 metros su velocidad pasa a ser 24 (su energia es 190)" {
+    tom.comerRaton(jerry)
+    tom.correr(24)
+    tom.comerRaton(nibbles)
+    jerry.cumplirAños()
+    tom.comerRaton(jerry)
+    tom.correr(38)
+    assert.equals(24, tom.velocidadMaxima())
+  }
+
+  test "advincula come 15 porciones de queso, tom se lo come, su velocidad pasa a ser de 27.7(su energia es 227)"{
+    tom.comerRaton(jerry)
+    tom.correr(24)
+    tom.comerRaton(nibbles)
+    jerry.cumplirAños()
+    tom.comerRaton(jerry)
+    tom.correr(38)
+    advincula.comerQueso(15)
+    tom.comerRaton(advincula)
+    assert.equals(27.7, tom.velocidadMaxima())
+  }
+
+  test "tom no puede comer a nibbles otra vez, ya que esta a una distancia de x, sigue siendo 27.7 (su energia es 227)" {
+    tom.comerRaton(jerry)
+    tom.correr(24)
+    tom.comerRaton(nibbles)
+    jerry.cumplirAños()
+    tom.comerRaton(jerry)
+    tom.correr(38)
+    advincula.comerQueso(15)
+    tom.comerRaton(advincula)
+    tom.cazarRatonSiPuede(nibbles, 500)
+    assert.equals(27.7, tom.velocidadMaxima())
   }
 
 }
